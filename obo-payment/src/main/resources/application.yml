@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: obo
+    password: obo
+    url: jdbc:h2:mem:paymentdb
+    driver-class-name: org.h2.Driver
+  h2:
+    console.enabled: true
+  jpa:
+    show-sql: true
+
+logging:
+  level:
+    com.github.budwing.obo: DEBUG
