@@ -1,6 +1,12 @@
 # Compiled class file
 *.class
 
+# IDEA
+.idea
+
+# Maven
+target
+
 # Log file
 *.log
 
