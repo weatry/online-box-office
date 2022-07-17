@@ -5,11 +5,9 @@
 .idea
 .iml
 
+
 # Maven
 target
-
-# SEATA
-sessionStore
 
 # Log file
 *.log

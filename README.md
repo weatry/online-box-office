@@ -2,11 +2,11 @@
 Online Box Office(obo) is an example project for microservice architecture style.
 <!-- TOC -->
 * [Deployment](#deployment)
-    * [JDK](#jdk)
-    * [Maven](#maven)
-    * [IDEA / Eclipse](#idea--eclipse)
+  * [JDK](#jdk)
+  * [Maven](#maven)
+  * [IDEA / Eclipse](#idea--eclipse)
 * [Tags](#tags)
-    * [s0](#s0)
+  * [s0](#s0)
 <!-- TOC -->
 ## Deployment
 In order to run this project, you will have to install the following software:
@@ -32,3 +32,4 @@ The following paragraph will explain what's contained in each tag. Just run 'git
 ### s0
 Tags begin with 's0' show the basic knowledge about microservices, such as the knowledge about Spring Boot, and Domain Driven Design.
 * [s0.spring.boot](docs/s0.spring.boot.md)
+* [s0.domain.1](docs/s0.domain.1.md)
