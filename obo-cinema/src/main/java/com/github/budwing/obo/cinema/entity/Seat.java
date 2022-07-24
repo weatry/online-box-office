@@ -1,5 +1,6 @@
 package com.github.budwing.obo.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -13,9 +14,17 @@ public class Seat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @ManyToOne
+    @JsonIgnore
+    private Cinema cinema;
+    @ManyToOne
+    @JsonIgnore
+    private Hall hall;
     private Integer hallFloor;
     private Integer seatRow;
     private Integer seatCol;
+    private Integer coordinateX;
+    private Integer coordinateY;
     private String type;
     private Boolean available;
 }

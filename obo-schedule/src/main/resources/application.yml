@@ -1,24 +1,16 @@
 server:
-  port: 8081
+  port: 8084
 
 spring:
   datasource:
     username: obo
     password: obo
-    url: jdbc:h2:mem:cinemadb
+    url: jdbc:h2:mem:scheduledb
     driver-class-name: org.h2.Driver
   h2:
     console.enabled: true
   jpa:
     show-sql: true
-    hibernate:
-      ddl-auto: none
-    sql:
-      init:
-        mode: ALWAYS
-        data: classpath:data.sql
-        schema: classpath:schema.sql
-
 
 logging:
   level:

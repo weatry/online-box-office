@@ -1,5 +1,6 @@
 package com.github.budwing.obo.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.github.budwing.obo.cinema.vo.Address;
 import com.github.budwing.obo.cinema.vo.GeoLocation;
 import lombok.Data;
@@ -26,5 +27,6 @@ public class Cinema implements Serializable {
     private String telephone;
     @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "cinema_id")
+    @JsonIgnore
     private List<Hall> halls;
 }
