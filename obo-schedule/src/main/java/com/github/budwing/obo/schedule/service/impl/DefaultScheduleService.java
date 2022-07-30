@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,20 +26,45 @@ public class DefaultScheduleService implements ScheduleService {
     private TicketRepository ticketRepository;
 
     @Override
-    public void changeStatus(String scheduleId, Schedule.Status status) {
-        Schedule schedule = scheduleRepository.getReferenceById(scheduleId);
+    @Transactional
+    public Schedule changeStatus(String scheduleId, Schedule.Status status) {
+        Optional<Schedule> optional = scheduleRepository.findById(scheduleId);
+        if (!optional.isPresent()) {
+            log.debug("schedule is null");
+            return null;
+        }
+
+        Schedule schedule = optional.get();
+        Schedule.Status preStatus = schedule.getStatus();
+        if(preStatus.ordinal()>=status.ordinal()) {
+            log.info("schedule status is {}, which can be changed to {}", preStatus, status);
+            return schedule;
+        }
+
+        switch (status) {
+            case SALE:
+                List<Ticket> tickets = ticketsOf(schedule);
+                ticketRepository.saveAll(tickets);
+                break;
+            case CANCEL:
+                ticketRepository.deleteBySchedule_id(scheduleId);
+        }
+
         schedule.setStatus(status);
         scheduleRepository.save(schedule);
 
+        return schedule;
+    }
+
+    public List<Ticket> ticketsOf(Schedule schedule) {
         RestTemplate restTemplate = new RestTemplate();
         String url = String.format("http://localhost:8081/obo/cinema/%d/hall/%d/seat",
-                1, 1);
+                schedule.getCinemaId(), schedule.getHallId());
         log.debug("send request to {} to query seats", url);
         List<Map> seats = restTemplate.getForObject(url, List.class);
         log.debug("got seats:{}", seats);
-        List<Ticket> tickets = seats.stream()
+        return seats.stream()
                 .map(m -> new Ticket(schedule, Seat.of(m), 40.00))
                 .collect(Collectors.toList());
-        ticketRepository.saveAll(tickets);
     }
 }
