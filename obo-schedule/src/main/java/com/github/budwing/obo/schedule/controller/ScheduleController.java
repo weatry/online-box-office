@@ -2,10 +2,12 @@ package com.github.budwing.obo.schedule.controller;
 
 import com.github.budwing.obo.schedule.entity.Schedule;
 import com.github.budwing.obo.schedule.repository.ScheduleRepository;
+import com.github.budwing.obo.schedule.service.ScheduleService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -18,6 +20,8 @@ import java.util.List;
 public class ScheduleController {
     @Autowired
     private ScheduleRepository scheduleRepository;
+    @Autowired
+    private ScheduleService scheduleService;
     @Operation(summary = "Get schedules of a specific cinema")
     @GetMapping("/schedule/cinema/{cinemaId}")
     public List<Schedule> getCinemaSchedulesBetween(@PathVariable Integer cinemaId,
@@ -81,6 +85,29 @@ public class ScheduleController {
     @Operation(summary = "Add a schedule")
     @PostMapping("/schedule")
     public void addSchedule(@RequestBody Schedule schedule) {
+        if (schedule.getStatus()==null) {
+            schedule.setStatus(Schedule.Status.INIT);
+        }
         scheduleRepository.save(schedule);
+    }
+
+    @Operation(summary = "Start selling tickets of a schedule")
+    @PutMapping("/schedule/{scheduleId}/status/SALE")
+    public ResponseEntity start(@PathVariable String scheduleId) {
+        Schedule schedule = scheduleService.changeStatus(scheduleId, Schedule.Status.SALE);
+        if (schedule==null) return ResponseEntity.notFound().build();
+        // a canceled schedule can't change status
+        if (schedule.getStatus()== Schedule.Status.CANCEL) return ResponseEntity.badRequest().body("schedule is canceled");
+
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(summary = "Cancel a schedule")
+    @PutMapping("/schedule/{scheduleId}/status/CANCEL")
+    public ResponseEntity cancel(@PathVariable String scheduleId) {
+        Schedule schedule = scheduleService.changeStatus(scheduleId, Schedule.Status.CANCEL);
+        if (schedule==null) return ResponseEntity.notFound().build();
+
+        return ResponseEntity.ok().build();
     }
 }
