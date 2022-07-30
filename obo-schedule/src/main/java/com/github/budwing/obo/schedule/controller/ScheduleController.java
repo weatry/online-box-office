@@ -2,9 +2,11 @@ package com.github.budwing.obo.schedule.controller;
 
 import com.github.budwing.obo.schedule.entity.Schedule;
 import com.github.budwing.obo.schedule.repository.ScheduleRepository;
+import com.github.budwing.obo.schedule.service.ScheduleService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -17,12 +19,14 @@ import java.util.List;
 public class ScheduleController {
     @Autowired
     private ScheduleRepository scheduleRepository;
+    @Autowired
+    private ScheduleService scheduleService;
 
     @Operation(summary = "Get schedules of a specific cinema")
     @GetMapping("/schedule/cinema/{cinemaId}")
     public List<Schedule> getCinemaSchedulesBetween(@PathVariable Integer cinemaId,
-                                                    @RequestParam(required = false) LocalDateTime start,
-                                                    @RequestParam(required = false) LocalDateTime end) {
+                                                    @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
+                                                    @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end) {
         if (start==null) {
             start=LocalDateTime.now();
         }
@@ -36,10 +40,9 @@ public class ScheduleController {
     @Operation(summary = "Get schedules of a cinema hall",
             description = "Get schedules of a cinema hall between during a specific period, this is usually used by cinema operator to schedule movies")
     @GetMapping("/schedule/cinema/{cinemaId}/hall/{hallId}")
-    public List<Schedule> getCinemaHallSchedulesBetween(@PathVariable Integer cinemaId,
-                                             @PathVariable Integer hallId,
-                                             @RequestParam(required = false) LocalDateTime start,
-                                             @RequestParam(required = false) LocalDateTime end) {
+    public List<Schedule> getCinemaHallSchedulesBetween(@PathVariable Integer cinemaId, @PathVariable Integer hallId,
+                                                        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
+                                                        @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end) {
         if (start==null) {
             start=LocalDateTime.now();
         }
@@ -83,5 +86,11 @@ public class ScheduleController {
     @PostMapping("/schedule")
     public void addSchedule(@RequestBody Schedule schedule) {
         scheduleRepository.save(schedule);
+    }
+
+    @Operation(summary = "Start selling tickets of a schedule")
+    @PutMapping("/schedule/{scheduleId}/status/{status}")
+    public void startSelling(@PathVariable String scheduleId, @PathVariable Schedule.Status status) {
+        scheduleService.changeStatus(scheduleId, status);
     }
 }

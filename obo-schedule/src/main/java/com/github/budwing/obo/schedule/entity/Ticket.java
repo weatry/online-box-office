@@ -13,6 +13,15 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 public class Ticket {
+    public Ticket() {
+    }
+
+    public Ticket(Schedule schedule, Seat seat, Double price) {
+        this.schedule = schedule;
+        this.seat = seat;
+        this.price = price;
+    }
+
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
