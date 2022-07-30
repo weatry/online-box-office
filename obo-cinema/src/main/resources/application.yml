@@ -11,13 +11,13 @@ spring:
     console.enabled: true
   jpa:
     show-sql: true
-#    hibernate:
-#      ddl-auto: none
-#  sql:
-#    init:
-#      mode: ALWAYS
-#      data: classpath:data.sql
-#      schema: classpath:schema.sql
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: ALWAYS
+      data: classpath:data.sql
+      schema: classpath:schema.sql
 
 logging:
   level:
