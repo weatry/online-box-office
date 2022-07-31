@@ -42,3 +42,4 @@ Tags with '**_s1.lb._**' prefix are related to load balancing. Tags with '**_s1.
   * [s1.lb.0.RestTemplate](docs/s1.lb.0.RestTemplate.md)
   * [s1.lb.1.RestTemplate.SimpleDiscoveryClient](docs/s1.lb.1.RestTemplate.SimpleDiscoveryClient.md)
   * [s1.lb.2.RestTemplate.Eureka](docs/s1.lb.2.RestTemplate.Eureka.md)
+  * [s1.lb.3.OpenFeign.Eureka](docs/s1.lb.3.OpenFeign.Eureka.md)
