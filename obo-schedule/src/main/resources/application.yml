@@ -11,6 +11,22 @@ spring:
     console.enabled: true
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: none
+      sql:
+        init:
+          mode: ALWAYS
+          data: classpath:data.sql
+          schema: classpath:schema.sql
+
+  cloud:
+    discovery:
+      client:
+        simple:
+          instances:
+            obo-cinema:
+              - uri: http://localhost:8081
+              - uri: http://localhost:8091
 
 logging:
   level:
