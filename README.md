@@ -7,6 +7,7 @@ Online Box Office(obo) is an example project for microservice architecture style
   * [IDEA / Eclipse](#idea--eclipse)
 * [Tags](#tags)
   * [s0](#s0)
+  * [s1](#s1)
 <!-- TOC -->
 ## Deployment
 In order to run this project, you will have to install the following software:
@@ -37,7 +38,7 @@ Tags begin with 's0' show the basic knowledge about microservices, such as the k
 ### s1
 Tags begun with 's1' show some common patterns in microservices, and how to implement them in Spring Cloud.
 Tags with '**_s1.lb._**' prefix are related to load balancing. Tags with '**_s1.cb._**' prefix are related to circuit breaker.
-
-Load balancing
-* [s1.lb.0.RestTemplate](docs/s1.lb.0.RestTemplate.md)
-* [s1.lb.1.RestTemplate.SimpleDiscoveryClient](docs/s1.lb.1.RestTemplate.SimpleDiscoveryClient.md)
+* Load balancing **_s1.lb_**
+  * [s1.lb.0.RestTemplate](docs/s1.lb.0.RestTemplate.md)
+  * [s1.lb.1.RestTemplate.SimpleDiscoveryClient](docs/s1.lb.1.RestTemplate.SimpleDiscoveryClient.md)
+  * [s1.lb.2.RestTemplate.Eureka](docs/s1.lb.2.RestTemplate.Eureka.md)

@@ -2,6 +2,8 @@ server:
   port: 8084
 
 spring:
+  application:
+    name: obo-schedule
   datasource:
     username: obo
     password: obo
@@ -19,14 +21,11 @@ spring:
           data: classpath:data.sql
           schema: classpath:schema.sql
 
-  cloud:
-    discovery:
-      client:
-        simple:
-          instances:
-            obo-cinema:
-              - uri: http://localhost:8081
-              - uri: http://localhost:8091
+# the default url is localhost:8761, so the following config is not necessary
+#eureka:
+#  client:
+#    serviceUrl:
+#      defaultZone: http://localhost:8761/eureka/
 
 logging:
   level:
