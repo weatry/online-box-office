@@ -1,0 +1,2 @@
+By default, every Eureka server is also a Eureka client and requires (at least one) service URL to locate a peer. 
+If you do not provide it, the service runs and works, but it fills your logs with a lot of noise about not being able to register with the peer.

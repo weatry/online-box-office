@@ -1,10 +1,15 @@
-Business script for schedule movie:
-1. Operator wants to schedule movie for a specific date;
-2. System shows all halls of the cinema;
-3. System shows all existing schedules for that date;
-4. System shows all movies that can be scheduled;
-5. Operator selects one movie and adds it to a hall;
-6. System checks the duration of movie to see if it can be scheduled;
-7. System update the schedule;
-8. Operator starts the sales of this schedule;
-9. System generates all tickets
+## Business of Schedule
+Please see [business script](BusinessScript.md) of movie schedule.
+
+## Spring Cloud Technical point
+
+### Invocation between Services
+RestTemplate is the simplest client of REST services.
+
+### Service Registry & Load balance
+Load balancing in microservices is usually based on service registry and discovery.
+
+@EnableDiscoveryClient makes application look for implementations of the DiscoveryClient, which can be seen as a client of service registry. 
+Examples of DiscoveryClient implementations include **Spring Cloud Netflix Eureka**, **Spring Cloud Consul Discovery**, and **Spring Cloud Zookeeper Discovery**.
+
+If there is no implementation of DiscoveryClient in the classpath, SimpleDiscoveryClient instance, that uses properties to get information on service and instances, will be used.
