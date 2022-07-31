@@ -24,6 +24,8 @@ public class DefaultScheduleService implements ScheduleService {
     private ScheduleRepository scheduleRepository;
     @Autowired
     private TicketRepository ticketRepository;
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     @Transactional
@@ -57,8 +59,7 @@ public class DefaultScheduleService implements ScheduleService {
     }
 
     public List<Ticket> ticketsOf(Schedule schedule) {
-        RestTemplate restTemplate = new RestTemplate();
-        String url = String.format("http://localhost:8081/obo/cinema/%d/hall/%d/seat",
+        String url = String.format("http://obo-cinema/obo/cinema/%d/hall/%d/seat",
                 schedule.getCinemaId(), schedule.getHallId());
         log.debug("send request to {} to query seats", url);
         List<Map> seats = restTemplate.getForObject(url, List.class);
