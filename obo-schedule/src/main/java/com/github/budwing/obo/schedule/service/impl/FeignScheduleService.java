@@ -4,28 +4,27 @@ import com.github.budwing.obo.schedule.entity.Schedule;
 import com.github.budwing.obo.schedule.entity.Ticket;
 import com.github.budwing.obo.schedule.repository.ScheduleRepository;
 import com.github.budwing.obo.schedule.repository.TicketRepository;
+import com.github.budwing.obo.schedule.sal.CinemaClient;
 import com.github.budwing.obo.schedule.service.ScheduleService;
 import com.github.budwing.obo.schedule.vo.Seat;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-//@Service
+@Service
 @Slf4j
-public class DefaultScheduleService implements ScheduleService {
+public class FeignScheduleService implements ScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
     @Autowired
     private TicketRepository ticketRepository;
     @Autowired
-    private RestTemplate restTemplate;
+    private CinemaClient cinemaClient;
 
     @Override
     @Transactional
@@ -59,13 +58,10 @@ public class DefaultScheduleService implements ScheduleService {
     }
 
     public List<Ticket> ticketsOf(Schedule schedule) {
-        String url = String.format("http://obo-cinema/obo/cinema/%d/hall/%d/seat",
-                schedule.getCinemaId(), schedule.getHallId());
-        log.debug("send request to {} to query seats", url);
-        List<Map> seats = restTemplate.getForObject(url, List.class);
+        List<Seat> seats = cinemaClient.getSeatOf(schedule.getCinemaId(), schedule.getHallId());
         log.debug("got seats:{}", seats);
         return seats.stream()
-                .map(m -> new Ticket(schedule, Seat.of(m), 40.00))
+                .map(seat -> new Ticket(schedule, seat, 40.00))
                 .collect(Collectors.toList());
     }
 }
