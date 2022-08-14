@@ -1,13 +1,11 @@
 package com.github.budwing.obo.trade.entity;
 
+import com.github.budwing.obo.trade.vo.Ticket;
 import lombok.Data;
 import lombok.ToString;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "obo_order_item")
@@ -18,6 +16,7 @@ public class OrderItem {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
-    private String movieName;
-    private Double price;
+    @Embedded
+    private Ticket ticket;
+    private Integer price;
 }
