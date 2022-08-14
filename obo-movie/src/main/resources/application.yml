@@ -1,5 +1,8 @@
 server:
   port: 8082
+logging:
+  level:
+    com.github.budwing.obo: DEBUG
 
 spring:
   datasource:
@@ -11,7 +14,3 @@ spring:
     console.enabled: true
   jpa:
     show-sql: true
-
-logging:
-  level:
-    com.github.budwing.obo: DEBUG

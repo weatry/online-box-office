@@ -1,0 +1,14 @@
+{
+  "phone": "13999999999",
+  "orderItemList": [
+    {
+      "ticket": {
+        "ticketId": "test-ticket-id",
+        "seatFloor": 1,
+        "seatRow": 1,
+        "seatCol": 1
+      },
+      "price": 40
+    }
+  ]
+}

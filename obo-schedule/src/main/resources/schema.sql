@@ -1,13 +1,14 @@
-DROP TABLE IF exists obo_schedule CASCADE;
-DROP TABLE IF EXISTS obo_ticket CASCADE;
+DROP TABLE IF EXISTS obo_ticket;
+DROP TABLE IF EXISTS obo_schedule;
+DROP TABLE IF EXISTS undo_log;
 
 CREATE TABLE obo_schedule (
   id varchar(255) not null,
   cinema_id integer,
   hall_id integer,
   movie_id varchar(255),
-  start_time timestamp,
-  end_time timestamp,
+  start_time datetime(6),
+  end_time datetime(6),
   status integer,
   primary key (id)
 );
@@ -19,10 +20,25 @@ CREATE TABLE obo_ticket (
   seat_col integer,
   seat_row integer,
   price double,
+  status integer,
   code varchar(255),
-  get_time timestamp,
-  pay_time timestamp,
+  get_time datetime(6),
+  pay_time datetime(6),
   primary key (id)
 );
 
-ALTER TABLE obo_ticket ADD CONSTRAINT FK_schedule_id FOREIGN KEY (schedule_id) REFERENCES obo_schedule;
+CREATE TABLE `undo_log` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `branch_id` bigint(20) NOT NULL,
+  `xid` varchar(100) NOT NULL,
+  `context` varchar(128) NOT NULL,
+  `rollback_info` longblob NOT NULL,
+  `log_status` int(11) NOT NULL,
+  `log_created` datetime NOT NULL,
+  `log_modified` datetime NOT NULL,
+  `ext` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+ALTER TABLE obo_ticket ADD CONSTRAINT FK_schedule_id FOREIGN KEY (schedule_id) REFERENCES obo_schedule (id);

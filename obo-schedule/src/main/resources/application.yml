@@ -1,6 +1,5 @@
 server:
   port: 8084
-
 logging:
   level:
     com.github.budwing.obo: DEBUG
@@ -9,21 +8,30 @@ spring:
   application:
     name: obo-schedule
   datasource:
-    username: obo
-    password: obo
-    url: jdbc:h2:mem:scheduledb
-    driver-class-name: org.h2.Driver
-  h2:
-    console.enabled: true
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/scheduledb?useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: obo
+#    password: obo
+#    url: jdbc:h2:mem:scheduledb;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+#    driver-class-name: org.h2.Driver
+#  h2:
+#    console.enabled: true
   jpa:
+    database: MYSQL
     show-sql: true
     hibernate:
       ddl-auto: none
-      sql:
-        init:
-          mode: ALWAYS
-          data: classpath:data.sql
-          schema: classpath:schema.sql
+  sql:
+    init:
+      mode: ALWAYS
+      data-locations: classpath:data.sql
+      schema-locations: classpath:schema.sql
+
+  cloud:
+    alibaba.seata:
+      tx-service-group: schedule-service
 
 # the default url is localhost:8761, so the following config is not necessary
 #eureka:
@@ -55,3 +63,15 @@ feign:
     enabled: true
     alphanumeric-ids:
       enabled: true
+
+seata:
+  enabled: true
+  service:
+    vgroup-mapping:
+      schedule-service: default
+    grouplist:
+      default: 127.0.0.1:8091
+    disable-global-transaction: false
+  client:
+    undo:
+      log-serialization: kryo

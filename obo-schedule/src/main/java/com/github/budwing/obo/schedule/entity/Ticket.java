@@ -13,6 +13,13 @@ import java.time.LocalDateTime;
 @Data
 @ToString
 public class Ticket {
+    public static enum Status {
+        ONSALE,
+        LOCKED,
+        ORDERED,
+        PAYED
+    }
+
     public Ticket() {
     }
 
@@ -20,6 +27,7 @@ public class Ticket {
         this.schedule = schedule;
         this.seat = seat;
         this.price = price;
+        this.status = Status.ONSALE;
     }
 
     @Id
@@ -31,6 +39,7 @@ public class Ticket {
     @Embedded
     private Seat seat;
     private Double price;
+    private Status status;
     private LocalDateTime payTime;
     private LocalDateTime getTime;
     private String code;

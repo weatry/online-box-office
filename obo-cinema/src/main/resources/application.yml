@@ -1,6 +1,5 @@
 server:
   port: 8081
-
 logging:
   level:
     com.github.budwing.obo: DEBUG
@@ -9,13 +8,18 @@ spring:
   application:
     name: obo-cinema
   datasource:
-    username: obo
-    password: obo
-    url: jdbc:h2:mem:cinemadb
-    driver-class-name: org.h2.Driver
-  h2:
-    console.enabled: true
+    username: root
+    password: root
+    url: jdbc:mysql://localhost:3306/cinemadb?useSSL=false&useUnicode=true&characterEncoding=utf8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+#    username: obo
+#    password: obo
+#    url: jdbc:h2:mem:cinemadb
+#    driver-class-name: org.h2.Driver
+#  h2:
+#    console.enabled: true
   jpa:
+    database: MYSQL
     show-sql: true
     hibernate:
       ddl-auto: none
