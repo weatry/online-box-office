@@ -1,5 +1,8 @@
 server:
   port: 8761
+logging:
+  level:
+    com.github.budwing.obo: DEBUG
 
 eureka:
   instance:
@@ -9,7 +12,3 @@ eureka:
     fetchRegistry: false
     serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
-
-logging:
-  level:
-    com.github.budwing.obo: DEBUG

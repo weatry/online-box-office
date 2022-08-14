@@ -13,7 +13,7 @@ import java.util.List;
 @FeignClient(value = "obo-cinema", fallbackFactory = CinemaClientFallbackFactory.class)
 public interface CinemaClient {
     @GetMapping("/obo/cinema/{cinemaId}/hall/{hallId}/seat")
-    List<Seat> getSeatOf(@PathVariable Integer cinemaId, @PathVariable Integer hallId);
+    List<Seat> getSeatOf(@PathVariable("cinemaId") Integer cinemaId, @PathVariable("hallId") Integer hallId);
 }
 
 @Component

@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @Slf4j
-public class FeignScheduleService implements ScheduleService {
+public class FeignBasedScheduleService implements ScheduleService {
     @Autowired
     private ScheduleRepository scheduleRepository;
     @Autowired
