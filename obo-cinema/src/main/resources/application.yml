@@ -1,6 +1,10 @@
 server:
   port: 8081
 
+logging:
+  level:
+    com.github.budwing.obo: DEBUG
+
 spring:
   application:
     name: obo-cinema
@@ -22,11 +26,28 @@ spring:
         schema: classpath:schema.sql
 
 
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
+  cloud:
+    circuitbreaker:
+      bulkhead:
+        resilience4j:
+          enabled: true
+#      resilience4j:
+#        enableSemaphoreDefaultBulkhead: true
 
-logging:
-  level:
-    com.github.budwing.obo: DEBUG
+resilience4j.thread-pool-bulkhead:
+  configs:
+    default:
+      maxThreadPoolSize: 25
+      coreThreadPoolSize: 10
+  instances:
+    obo-cinema:
+      maxThreadPoolSize: 5
+      coreThreadPoolSize: 2
+
+#resilience4j.bulkhead:
+#  configs:
+#    default:
+#      maxConcurrentCalls: 25
+#  instances:
+#    obo-cinema:
+#      maxConcurrentCalls: 10
