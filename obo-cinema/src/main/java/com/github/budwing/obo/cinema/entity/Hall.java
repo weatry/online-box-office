@@ -17,7 +17,7 @@ public class Hall {
     private String name;
     private String type;
     private String status;
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinColumn(name = "hall_id")
     private List<Seat> seats;
 }
