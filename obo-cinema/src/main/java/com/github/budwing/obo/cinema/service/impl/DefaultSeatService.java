@@ -1,6 +1,6 @@
 package com.github.budwing.obo.cinema.service.impl;
 
-import com.github.budwing.obo.cinema.dto.SeatDto;
+import com.github.budwing.obo.cinema.dto.SeatDTO;
 import com.github.budwing.obo.cinema.entity.Seat;
 import com.github.budwing.obo.cinema.repository.SeatRepository;
 import com.github.budwing.obo.cinema.service.SeatService;
@@ -18,9 +18,9 @@ public class DefaultSeatService implements SeatService {
     private SeatRepository seatRepository;
 
     @Override
-    public List<SeatDto> getAllAvailableSeat(Integer cinemaId, Integer hallId) {
+    public List<SeatDTO> getAllAvailableSeat(Integer cinemaId, Integer hallId) {
         List<Seat> seatList = seatRepository.findByCinema_idAndHall_idAndAvailable(cinemaId, hallId, true);
-        return seatList.stream().map(seat -> SeatDto.of(seat))
+        return seatList.stream().map(seat -> SeatDTO.of(seat))
                 .collect(Collectors.toList());
     }
 }

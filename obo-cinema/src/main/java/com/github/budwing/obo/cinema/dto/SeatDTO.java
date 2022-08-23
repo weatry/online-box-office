@@ -6,9 +6,9 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-public class SeatDto implements Serializable {
-    public static SeatDto of(Seat seat) {
-        return new SeatDto(seat.getHallFloor(), seat.getSeatRow(), seat.getSeatCol());
+public class SeatDTO implements Serializable {
+    public static SeatDTO of(Seat seat) {
+        return new SeatDTO(seat.getHallFloor(), seat.getSeatRow(), seat.getSeatCol());
     }
     private final Integer hallFloor;
     private final Integer seatRow;

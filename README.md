@@ -46,3 +46,4 @@ Tags with '**_s1.lb._**' prefix are related to load balancing. Tags with '**_s1.
 * Circuit breaker **_s1.cb_**
   * [s1.cb.1.CircuitBreaker](docs/s1.cb.1.CircuitBreaker.md)
   * [s1.cb.2.FeignCircuitBreaker](docs/s1.cb.2.FeignCircuitBreaker.md)
+  * [s1.cb.3.Bulkhead](docs/s1.cb.3.Bulkhead.md)
