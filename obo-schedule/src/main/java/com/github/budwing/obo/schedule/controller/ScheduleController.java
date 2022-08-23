@@ -94,7 +94,13 @@ public class ScheduleController {
     @Operation(summary = "Start selling tickets of a schedule")
     @PutMapping("/schedule/{scheduleId}/status/SALE")
     public ResponseEntity start(@PathVariable String scheduleId) {
-        Schedule schedule = scheduleService.changeStatus(scheduleId, Schedule.Status.SALE);
+        Schedule schedule = null;
+        try {
+            schedule = scheduleService.changeStatus(scheduleId, Schedule.Status.SALE);
+        } catch (Exception e) {
+            log.error("Got an exception: {}", e.getMessage());
+            return ResponseEntity.internalServerError().build();
+        }
         if (schedule==null) return ResponseEntity.notFound().build();
         // a canceled schedule can't change status
         if (schedule.getStatus()== Schedule.Status.CANCEL) return ResponseEntity.badRequest().body("schedule is canceled");
