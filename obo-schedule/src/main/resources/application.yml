@@ -39,7 +39,7 @@ resilience4j.circuitbreaker:
       permittedNumberOfCallsInHalfOpenState: 10
       slidingWindowType: TIME_BASED
   instances:
-    obo-cinema:
+    CinemaClientgetSeatOfIntegerInteger:
       registerHealthIndicator: true
       slidingWindowSize: 10
       permittedNumberOfCallsInHalfOpenState: 3
@@ -49,3 +49,9 @@ resilience4j.circuitbreaker:
       slowCallDurationThreshold: 100
       waitDurationInOpenState: 20s
       automaticTransitionFromOpenToHalfOpenEnabled: false
+
+feign:
+  circuitbreaker:
+    enabled: true
+    alphanumeric-ids:
+      enabled: true
