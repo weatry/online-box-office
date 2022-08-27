@@ -14,3 +14,9 @@ spring:
     console.enabled: true
   jpa:
     show-sql: true
+
+# the default url is localhost:8761, so the following config is not necessary
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

@@ -1,0 +1,10 @@
+[
+  {
+    "resource": "obo-payment.pay",
+    "grade": 1,
+    "count": 1,
+    "clusterMode": false,
+    "controlBehavior": 0,
+    "strategy": 0
+  }
+]

@@ -55,6 +55,7 @@ Tags with '**_s1.lb._**' prefix are related to load balancing. Tags with '**_s1.
   * [s1.cb.1.CircuitBreaker](docs/s1.cb.1.CircuitBreaker.md)
   * [s1.cb.2.FeignCircuitBreaker](docs/s1.cb.2.FeignCircuitBreaker.md)
   * [s1.cb.3.Bulkhead](docs/s1.cb.3.Bulkhead.md)
+  * [s1.cb.4.Sentinel](docs/s1.cb.4.Sentinel.md)
 ### s2
 Tags begun with 's2' show some patterns about traditional relational database, such as distributed transaction, database sharding.
 * [s2.db.1.SEATA.AT](docs/s2.db.1.SEATA.AT.md)

@@ -21,7 +21,8 @@ public interface CinemaClient {
 class CinemaClientFallbackFactory implements FallbackFactory<CinemaClient> {
     @Override
     public CinemaClient create(Throwable cause) {
-        log.error("fallback for exception: {}", cause.getMessage());
+        log.error("Cinema client fallback for exception: {}", cause.getClass());
+        log.error("Cinema client exception messages: {}", cause.getMessage());
         return new CinemaClient() {
             @Override
             public List<Seat> getSeatOf(Integer cinemaId, Integer hallId) {

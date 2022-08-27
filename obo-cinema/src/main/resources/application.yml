@@ -12,46 +12,28 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/cinemadb?useSSL=false&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: obo
-#    password: obo
-#    url: jdbc:h2:mem:cinemadb
-#    driver-class-name: org.h2.Driver
-#  h2:
-#    console.enabled: true
   jpa:
     database: MYSQL
     show-sql: true
     hibernate:
       ddl-auto: none
-    sql:
-      init:
-        mode: ALWAYS
-        data: classpath:data.sql
-        schema: classpath:schema.sql
+  sql:
+    init:
+      mode: ALWAYS
+      data: classpath:data.sql
+      schema: classpath:schema.sql
 
 
   cloud:
-    circuitbreaker:
-      bulkhead:
-        resilience4j:
-          enabled: true
-#      resilience4j:
-#        enableSemaphoreDefaultBulkhead: true
+    alibaba.seata:
+      tx-service-group: schedule-service
 
-resilience4j.thread-pool-bulkhead:
-  configs:
-    default:
-      maxThreadPoolSize: 25
-      coreThreadPoolSize: 10
-  instances:
-    obo-cinema:
-      maxThreadPoolSize: 5
-      coreThreadPoolSize: 2
-
-#resilience4j.bulkhead:
-#  configs:
-#    default:
-#      maxConcurrentCalls: 25
-#  instances:
-#    obo-cinema:
-#      maxConcurrentCalls: 10
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+      datasource:
+        ds1:
+          file:
+            file: classpath:flow.json
+            rule-type: flow
