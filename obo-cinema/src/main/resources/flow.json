@@ -1,0 +1,10 @@
+[
+  {
+    "resource": "obo-cinema.getCinema",
+    "grade": 1,
+    "count": 1,
+    "clusterMode": false,
+    "controlBehavior": 0,
+    "strategy": 0
+  }
+]

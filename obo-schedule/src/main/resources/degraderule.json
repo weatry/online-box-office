@@ -1,0 +1,17 @@
+[
+  {
+    "resource": "GET:http://obo-cinema/obo/cinema/{cinemaId}/hall/{hallId}/seat",
+    "count": 5,
+    "grade": 2,
+    "passCount": 0,
+    "timeWindow": 10,
+    "statIntervalMs": 300000
+  },
+  {
+    "resource": "demo",
+    "count": 15.0,
+    "grade": 0,
+    "passCount": 0,
+    "timeWindow": 10
+  }
+]

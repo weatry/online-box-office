@@ -12,12 +12,7 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/scheduledb?useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
-#    username: obo
-#    password: obo
-#    url: jdbc:h2:mem:scheduledb;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
-#    driver-class-name: org.h2.Driver
-#  h2:
-#    console.enabled: true
+
   jpa:
     database: MYSQL
     show-sql: true
@@ -33,36 +28,19 @@ spring:
     alibaba.seata:
       tx-service-group: schedule-service
 
-# the default url is localhost:8761, so the following config is not necessary
-#eureka:
-#  client:
-#    serviceUrl:
-#      defaultZone: http://localhost:8761/eureka/
-
-resilience4j.circuitbreaker:
-  configs:
-    default:
-      registerHealthIndicator: true
-      slidingWindowSize: 100
-      permittedNumberOfCallsInHalfOpenState: 10
-      slidingWindowType: TIME_BASED
-  instances:
-    CinemaClientgetSeatOfIntegerInteger:
-      registerHealthIndicator: true
-      slidingWindowSize: 10
-      permittedNumberOfCallsInHalfOpenState: 3
-      slidingWindowType: COUNT_BASED
-      failureRateThreshold: 50
-      slowCallRateThreshold: 50
-      slowCallDurationThreshold: 100
-      waitDurationInOpenState: 20s
-      automaticTransitionFromOpenToHalfOpenEnabled: false
+    sentinel:
+      transport:
+        port: 8719
+        dashboard: localhost:8080
+      datasource:
+        ds1:
+          file:
+            file: classpath:degraderule.json
+            rule-type: degrade
 
 feign:
-  circuitbreaker:
+  sentinel:
     enabled: true
-    alphanumeric-ids:
-      enabled: true
 
 seata:
   enabled: true

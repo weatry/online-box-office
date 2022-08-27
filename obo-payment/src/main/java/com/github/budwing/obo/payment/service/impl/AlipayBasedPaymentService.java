@@ -1,5 +1,6 @@
 package com.github.budwing.obo.payment.service.impl;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.budwing.obo.payment.dto.PayRequest;
 import com.github.budwing.obo.payment.entity.Payment;
 import com.github.budwing.obo.payment.repository.PaymentRepository;
@@ -21,6 +22,7 @@ public class AlipayBasedPaymentService implements PaymentService {
     private PaymentRepository paymentRepository;
 
     @Transactional
+    @SentinelResource("obo-payment.pay")
     @Override
     public String payFor(PayRequest payRequest) {
         // Invoke Alipay service

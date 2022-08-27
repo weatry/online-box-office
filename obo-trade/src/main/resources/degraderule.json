@@ -1,0 +1,26 @@
+[
+  {
+    "resource": "POST:http://obo-payment/obo/payment",
+    "count": 5,
+    "grade": 2,
+    "passCount": 0,
+    "timeWindow": 10,
+    "statIntervalMs": 30000
+  },
+  {
+    "resource": "PUT:http://obo-schedule/obo/ticket/{ticketId}/status/ordered",
+    "count": 5,
+    "grade": 2,
+    "passCount": 0,
+    "timeWindow": 10,
+    "statIntervalMs": 30000
+  },
+  {
+    "resource": "PUT:http://obo-schedule/obo/ticket/{ticketId}/status/payed",
+    "count": 5,
+    "grade": 2,
+    "passCount": 0,
+    "timeWindow": 10,
+    "statIntervalMs": 30000
+  }
+]

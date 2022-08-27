@@ -1,10 +1,10 @@
 package com.github.budwing.obo.cinema.service.impl;
 
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.github.budwing.obo.cinema.dto.CinemaDTO;
 import com.github.budwing.obo.cinema.entity.Cinema;
 import com.github.budwing.obo.cinema.repository.CinemaRepository;
 import com.github.budwing.obo.cinema.service.CinemaService;
-import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -21,7 +21,7 @@ public class DefaultCinemaService implements CinemaService {
     private CinemaRepository cinemaRepository;
 
     @Override
-    @Bulkhead(name = "obo-cinema")
+    @SentinelResource("obo-cinema.getCinema")
     public List<CinemaDTO> getCinemas(Integer page, Integer size) {
         log.debug("Get cinemas, page:{}, size:{}", page, size);
         if (page == null) page = 1;
