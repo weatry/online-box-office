@@ -18,6 +18,12 @@ public class Payment {
         WECHAT,
         PAYPAL
     }
+
+    public static enum Status {
+        ONGOING,
+        SUCCESSFUL,
+        FAILED
+    }
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
@@ -29,4 +35,6 @@ public class Payment {
     private String payId;
     private String orderId;
     private LocalDateTime payTime;
+    private LocalDateTime finishedTime;
+    private Status status;
 }

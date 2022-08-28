@@ -35,6 +35,15 @@ spring:
           file:
             file: classpath:flow.json
             rule-type: flow
+    stream:
+      kafka:
+        binder:
+          brokers: localhost
+          default-broker-port: 9092
+      bindings:
+        payment-out-0:
+          destination: payment-result
+          use-native-encoding: true
 
 seata:
   enabled: true
