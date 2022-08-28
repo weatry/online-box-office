@@ -40,6 +40,7 @@ public class DefaultOrderService implements OrderService {
         }
 
         order.setCreateTime(LocalDateTime.now());
+        order.setStatus(Order.Status.UNPAID);
         order.setTotalPrice(totalPrice);
         orderRepository.save(order);
 
@@ -64,7 +65,7 @@ public class DefaultOrderService implements OrderService {
         String paymentId = paymentClient.pay(new PayRequest(order.getTotalPrice(), fromAccount, toAccount, orderId));
         order.setPayTime(LocalDateTime.now());
         order.setPaymentId(paymentId);
-        order.getOrderItemList().stream().forEach(orderItem -> ticketClient.payTicket(orderItem.getTicket().getTicketId()));
+        order.setStatus(Order.Status.PAYING);
         orderRepository.save(order);
 
         // The following code is used to mock fail to test global transaction
@@ -73,5 +74,32 @@ public class DefaultOrderService implements OrderService {
         }*/
 
         return paymentId;
+    }
+
+    @GlobalTransactional
+    @Override
+    public String finishOrder(String orderId, String statusString) {
+        if (!statusString.equals(Order.Status.PAID.name()) && !statusString.equals(Order.Status.FAILED)) {
+            throw new IllegalStateException("Only PAID or FAILED is allowed.");
+        }
+        log.debug("Global transaction xid: {}", RootContext.getXID());
+        Optional<Order> optional = orderRepository.findById(orderId);
+        if (!optional.isPresent()) {
+            log.debug("Order({}) doesn't exist.", orderId);
+            return null;
+        }
+        Order order = optional.get();
+
+        Order.Status status = Order.Status.valueOf(statusString);
+        if (status == Order.Status.PAID) {
+            order.getOrderItemList()
+                    .stream()
+                    .forEach(orderItem -> ticketClient.payTicket(orderItem.getTicket().getTicketId()));
+            order.setFinishedTime(LocalDateTime.now());
+        }
+        order.setStatus(status);
+        orderRepository.save(order);
+
+        return orderId;
     }
 }

@@ -9,6 +9,8 @@ CREATE TABLE obo_order (
   create_time datetime(6),
   payment_id varchar(255),
   pay_time datetime(6),
+  status integer,
+  finished_time datetime(6),
   primary key (id)
 ) engine=InnoDB;
 

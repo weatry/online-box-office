@@ -36,6 +36,20 @@ spring:
           file:
             file: classpath:degraderule.json
             rule-type: degrade
+    stream:
+      bindings:
+        payment-in-0:
+          group: obo-trade-payment
+          destination: payment-result
+          use-native-encoding: true
+      kafka:
+        binder:
+          brokers: localhost
+          default-broker-port: 9092
+        bindings:
+          payment-in-0:
+            consumer:
+              startOffset: latest
 
 feign:
   sentinel:
