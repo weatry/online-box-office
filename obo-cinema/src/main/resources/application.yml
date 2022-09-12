@@ -7,17 +7,7 @@ logging:
 spring:
   application:
     name: obo-cinema
-  datasource:
-    username: root
-    password: root
-    url: jdbc:mysql://localhost:3306/cinemadb?useSSL=false&useUnicode=true&characterEncoding=utf8
-    driver-class-name: com.mysql.cj.jdbc.Driver
 
-  jpa:
-    database: MYSQL
-    show-sql: true
-    hibernate:
-      ddl-auto: none
   sql:
     init:
       mode: ALWAYS
@@ -29,10 +19,10 @@ spring:
       names: cinemadb
       cinemadb:
         type: com.zaxxer.hikari.HikariDataSource
-        username: obo
-        password: obo
-        jdbc-url: jdbc:h2:mem:obo;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
-        driver-class-name: org.h2.Driver
+        username: root
+        password: root
+        url: jdbc:mysql://localhost:3306/cinemadb?useSSL=false
+        driver-class-name: com.mysql.cj.jdbc.Driver
     rules:
       sharding:
         tables:
@@ -69,7 +59,6 @@ spring:
             type: snowflake
     props:
       sql-show: true
-
   cloud:
     sentinel:
       transport:
@@ -80,3 +69,9 @@ spring:
           file:
             file: classpath:flow.json
             rule-type: flow
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    defaultEnumTypeHandler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    mapUnderscoreToCamelCase: true
