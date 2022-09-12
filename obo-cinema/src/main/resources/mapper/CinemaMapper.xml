@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.budwing.obo.cinema.mapper.CinemaMapper">
+    <select id="selectPageable" resultMap="Cinema">
+        <![CDATA[
+        select * from obo_cinema limit #{start}, #{size}
+        ]]>
+    </select>
+    <insert id="insertCinema" statementType="PREPARED" parameterType="com.github.budwing.obo.cinema.entity.Cinema">
+        insert into obo_cinema(city, province, street, latitude, longitude, name, telephone)
+        values(#{address.city}, #{address.province}, #{address.street}, #{location.latitude}, #{location.longitude}, #{name}, #{telephone})
+        <selectKey keyColumn="id" keyProperty="id" order="AFTER" resultType="Integer">
+            select last_insert_id()
+        </selectKey>
+    </insert>
+    <resultMap id="Cinema" type="com.github.budwing.obo.cinema.entity.Cinema">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="telephone" property="telephone" />
+        <result column="city" property="address.city" />
+        <result column="province" property="address.province" />
+        <result column="street" property="address.street" />
+        <result column="latitude" property="location.latitude" />
+        <result column="longitude" property="location.longitude" />
+    </resultMap>
+</mapper>

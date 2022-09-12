@@ -29,6 +29,7 @@
         <mysql-connector-java.version>5.1.49</mysql-connector-java.version>
         <kryo-serializers.version>0.42</kryo-serializers.version>
         <druid-spring-boot-starter.version>1.1.10</druid-spring-boot-starter.version>
+        <mybatis-spring-boot-starter.version>2.2.2</mybatis-spring-boot-starter.version>
         <shardingsphere.version>5.1.2</shardingsphere.version>
     </properties>
 
@@ -49,6 +50,11 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.alibaba.cloud</groupId>
                 <artifactId>spring-cloud-alibaba-dependencies</artifactId>
                 <version>${spring.cloud.alibaba.version}</version>
@@ -63,6 +69,11 @@
             <dependency>
                 <groupId>org.apache.shardingsphere</groupId>
                 <artifactId>shardingsphere-jdbc-core-spring-boot-starter</artifactId>
+                <version>${shardingsphere.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shardingsphere</groupId>
+                <artifactId>shardingsphere-transaction-base-seata-at</artifactId>
                 <version>${shardingsphere.version}</version>
             </dependency>
             <dependency>

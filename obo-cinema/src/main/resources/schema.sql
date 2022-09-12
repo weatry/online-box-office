@@ -37,6 +37,6 @@ CREATE TABLE obo_seat (
   primary key (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-ALTER TABLE obo_hall ADD CONSTRAINT FK_hall_cinema FOREIGN KEY (cinema_id) REFERENCES obo_cinema (id);
-ALTER TABLE obo_seat ADD CONSTRAINT FK_seat_cinema FOREIGN KEY (cinema_id) REFERENCES obo_cinema (id);
-ALTER TABLE obo_seat ADD CONSTRAINT FK_seat_hall   FOREIGN KEY (hall_id)   REFERENCES obo_hall (id);
+--ALTER TABLE obo_hall ADD CONSTRAINT FK_hall_cinema FOREIGN KEY (cinema_id) REFERENCES obo_cinema (id);
+--ALTER TABLE obo_seat ADD CONSTRAINT FK_seat_cinema FOREIGN KEY (cinema_id) REFERENCES obo_cinema (id);
+--ALTER TABLE obo_seat ADD CONSTRAINT FK_seat_hall   FOREIGN KEY (hall_id)   REFERENCES obo_hall (id);
