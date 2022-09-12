@@ -62,6 +62,7 @@ Tags with '**_s1.lb._**' prefix are related to load balancing. Tags with '**_s1.
 ### s2
 Tags begun with 's2' show some patterns about traditional relational database, such as distributed transaction, database sharding.
 * [s2.db.1.SEATA.AT](docs/s2.db.1.SEATA.AT.md)
+* [s2.db.2.SHARD.JDBC](docs/s2.db.2.SHARD.JDBC.md)
 ### s3
 Tags begun with 's3' show some general requirements in microservice.
 * [s3.mq.Kafka](docs/s3.mq.Kafka.md)

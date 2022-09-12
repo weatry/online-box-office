@@ -24,7 +24,7 @@ CREATE TABLE obo_hall (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 CREATE TABLE obo_seat (
-  id integer not null auto_increment,
+  id bigint not null,
   available boolean,
   hall_floor integer,
   seat_col integer,
@@ -35,7 +35,7 @@ CREATE TABLE obo_seat (
   cinema_id integer,
   hall_id integer,
   primary key (id)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE obo_hall ADD CONSTRAINT FK_hall_cinema FOREIGN KEY (cinema_id) REFERENCES obo_cinema (id);
 ALTER TABLE obo_seat ADD CONSTRAINT FK_seat_cinema FOREIGN KEY (cinema_id) REFERENCES obo_cinema (id);

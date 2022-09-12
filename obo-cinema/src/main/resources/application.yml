@@ -12,6 +12,7 @@ spring:
     password: root
     url: jdbc:mysql://localhost:3306/cinemadb?useSSL=false&useUnicode=true&characterEncoding=utf8
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     database: MYSQL
     show-sql: true
@@ -23,11 +24,53 @@ spring:
       data: classpath:data.sql
       schema: classpath:schema.sql
 
+  shardingsphere:
+    datasource:
+      names: cinemadb
+      cinemadb:
+        type: com.zaxxer.hikari.HikariDataSource
+        username: obo
+        password: obo
+        jdbc-url: jdbc:h2:mem:obo;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+        driver-class-name: org.h2.Driver
+    rules:
+      sharding:
+        tables:
+          obo_hall:
+            actual-data-nodes: cinemadb.obo_hall_$->{0..4}
+            table-strategy:
+              standard:
+                sharding-column: cinema_id
+                sharding-algorithm-name: obo-hall-inline
+          obo_seat:
+            actual-data-nodes: cinemadb.obo_seat_$->{0..4}
+            table-strategy:
+              standard:
+                sharding-column: cinema_id
+                sharding-algorithm-name: obo-seat-inline
+            key-generate-strategy:
+              column: id
+              key-generator-name: snowflake
+        binding-tables:
+          - obo_hall,obo_seat
+        broadcastTables:
+          - obo_cinema
+        sharding-algorithms:
+          obo-hall-inline:
+            type: INLINE
+            props:
+              algorithm-expression: obo_hall_$->{cinema_id % 5}
+          obo-seat-inline:
+            type: INLINE
+            props:
+              algorithm-expression: obo_seat_$->{cinema_id % 5}
+        key-generators:
+          snowflake:
+            type: snowflake
+    props:
+      sql-show: true
 
   cloud:
-    alibaba.seata:
-      tx-service-group: schedule-service
-
     sentinel:
       transport:
         port: 8719
