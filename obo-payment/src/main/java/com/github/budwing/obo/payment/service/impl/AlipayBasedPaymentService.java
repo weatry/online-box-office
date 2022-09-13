@@ -6,6 +6,8 @@ import com.github.budwing.obo.payment.entity.Payment;
 import com.github.budwing.obo.payment.repository.PaymentRepository;
 import com.github.budwing.obo.payment.sal.AlipayClient;
 import com.github.budwing.obo.payment.service.PaymentService;
+import io.seata.core.context.RootContext;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.stream.function.StreamBridge;
@@ -25,10 +27,11 @@ public class AlipayBasedPaymentService implements PaymentService {
     @Autowired
     private StreamBridge bridge;
 
-    @Transactional
+    @GlobalTransactional
     @SentinelResource("obo-payment.pay")
     @Override
     public String payFor(PayRequest payRequest) {
+        log.debug("Transaction xid: {}", RootContext.getXID());
         // Invoke Alipay service
         String alipayId = alipayClient.pay(payRequest);
         Payment payment = payRequest.toPayment();
@@ -43,7 +46,8 @@ public class AlipayBasedPaymentService implements PaymentService {
     @Transactional
     @Override
     public String changeStatus(String paymentId, String status) {
-        if (!status.equals(Payment.Status.SUCCESSFUL.name()) && !status.equals(Payment.Status.FAILED.name())) {
+        if (!status.equalsIgnoreCase(Payment.Status.SUCCESSFUL.name()) &&
+                !status.equalsIgnoreCase(Payment.Status.FAILED.name())) {
             throw new IllegalStateException("Status can only be SUCCESSFUL or FAILED, instead of "+status);
         }
         Optional<Payment> optional = paymentRepository.findById(paymentId);
@@ -51,10 +55,10 @@ public class AlipayBasedPaymentService implements PaymentService {
             return null;
         }
         Payment payment = optional.get();
-        payment.setStatus(Payment.Status.valueOf(status));
+        payment.setStatus(Payment.Status.valueOf(status.toUpperCase()));
         payment.setFinishedTime(LocalDateTime.now());
 
-        bridge.send("payment-result", payment.getOrderId()+":"+status);
+        bridge.send("payment-result", payment.getCinemaId()+":"+payment.getOrderId()+":"+status);
 
         return payment.getId();
     }

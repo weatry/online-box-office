@@ -3,9 +3,6 @@ package com.github.budwing.obo.trade.vo;
 import lombok.Data;
 import lombok.ToString;
 
-import javax.persistence.Embeddable;
-
-@Embeddable
 @Data
 @ToString
 public class Ticket {

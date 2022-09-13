@@ -16,6 +16,9 @@ CREATE TABLE obo_schedule (
 CREATE TABLE obo_ticket (
   id varchar(255) not null,
   schedule_id varchar(255),
+  movie_id varchar(255),
+  cinema_id integer,
+  hall_id integer,
   hall_floor integer,
   seat_col integer,
   seat_row integer,
@@ -41,4 +44,3 @@ CREATE TABLE `undo_log` (
   UNIQUE KEY `ux_undo_log` (`xid`,`branch_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-ALTER TABLE obo_ticket ADD CONSTRAINT FK_schedule_id FOREIGN KEY (schedule_id) REFERENCES obo_schedule (id);

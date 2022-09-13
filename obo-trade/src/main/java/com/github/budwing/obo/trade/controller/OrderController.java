@@ -1,6 +1,6 @@
 package com.github.budwing.obo.trade.controller;
 
-import com.github.budwing.obo.trade.entity.Order;
+import com.github.budwing.obo.trade.dto.OrderDto;
 import com.github.budwing.obo.trade.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class OrderController {
     @Operation(summary = "Create an order",
             description = "Tickets status will be changed to ordered, and an unpaid order will be saved at the same time.")
     @PostMapping(value = "/order", produces = "application/json")
-    public ResponseEntity create(@RequestBody Order order) {
+    public ResponseEntity create(@RequestBody OrderDto order) {
         log.debug("Start creating order:{}", order);
         String orderId = null;
         try {
@@ -34,12 +34,12 @@ public class OrderController {
 
     @Operation(summary = "Pay an order",
             description = "Tickets status will be changed to payed, and order will be updated as payed also.")
-    @PutMapping(value = "/order/{orderId}/payment", produces = "application/json")
-    public ResponseEntity pay(@PathVariable String orderId, @RequestParam String fromAccount, @RequestParam String toAccount) {
+    @PutMapping(value = "/order/{cinemaId}/{orderId}/{phone}/payment", produces = "application/json")
+    public ResponseEntity pay(@PathVariable String orderId, @PathVariable Integer cinemaId, @PathVariable String phone) {
         log.debug("Start payment for order: {}", orderId);
         String payId = null;
         try {
-            payId = orderService.payForOrder(orderId, fromAccount, toAccount);
+            payId = orderService.payForOrder(cinemaId, orderId, phone);
             if (payId==null) {
                 return ResponseEntity.notFound().build();
             }

@@ -4,10 +4,8 @@ import lombok.Data;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
-import javax.persistence.Embeddable;
 import java.util.Map;
 
-@Embeddable
 @Data
 @ToString
 @Slf4j

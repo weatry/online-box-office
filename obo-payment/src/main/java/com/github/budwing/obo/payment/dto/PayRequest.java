@@ -7,17 +7,17 @@ import lombok.ToString;
 @Data
 @ToString
 public class PayRequest {
-    private Long payAmount;
-    private String fromAccount;
-    private String toAccount;
     private String orderId;
+    private Integer cinemaId;
+    private String phone;
+    private Long payAmount;
 
     public Payment toPayment() {
         Payment payment = new Payment();
-        payment.setFromAccount(fromAccount);
-        payment.setToAccount(toAccount);
+        payment.setFromAccount(phone);
         payment.setOrderId(orderId);
         payment.setPayAmount(payAmount);
+        payment.setCinemaId(cinemaId);
 
         return payment;
     }

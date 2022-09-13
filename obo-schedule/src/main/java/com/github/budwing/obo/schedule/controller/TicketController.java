@@ -18,46 +18,46 @@ public class TicketController {
     @Operation(summary = "Lock a ticket for ordering",
             description = "Change the ticket status to locked and wait 10min for the users to finish ordering. " +
                     "If the user can't finish the ordering in 10min, the ticket will be released automatically.")
-    @PutMapping("/ticket/{ticketId}/status/locked")
-    public ResponseEntity lockTicket(@PathVariable String ticketId) {
+    @PutMapping("/ticket/{cinemaId}/{ticketId}/status/locked")
+    public ResponseEntity lockTicket(@PathVariable Integer cinemaId, @PathVariable String ticketId) {
         try {
-            Ticket ticket = ticketService.changeStatus(ticketId, Ticket.Status.LOCKED);;
+            Ticket ticket = ticketService.changeStatus(cinemaId, ticketId, Ticket.Status.LOCKED);;
             if (ticket==null) return ResponseEntity.notFound().build();
         } catch (IllegalStateException e) {
             ResponseEntity.badRequest().body("ticket was sold or locked");
         }
 
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Ticket.Status.LOCKED.ordinal());
     }
 
     @Operation(summary = "Order a ticket",
             description = "Change the ticket status to ordered, an ordered ticket can't be locked or ordered again. " +
                     "But if the order which the ticket belongs to isn't payed in a specific time(15min normally), " +
                     "the ticket will be released automatically once the order is expired or cancelled.")
-    @PutMapping("/ticket/{ticketId}/status/ordered")
-    public ResponseEntity orderTicket(@PathVariable String ticketId) {
+    @PutMapping("/ticket/{cinemaId}/{ticketId}/status/ordered")
+    public ResponseEntity orderTicket(@PathVariable Integer cinemaId, @PathVariable String ticketId) {
         try {
-            Ticket ticket = ticketService.changeStatus(ticketId, Ticket.Status.ORDERED);;
+            Ticket ticket = ticketService.changeStatus(cinemaId, ticketId, Ticket.Status.ORDERED);;
             if (ticket==null) return ResponseEntity.notFound().build();
         } catch (IllegalStateException e) {
             ResponseEntity.badRequest().body("ticket was sold");
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Ticket.Status.ORDERED.ordinal());
     }
 
     @Operation(summary = "Pay a ticket",
             description = "Change the ticket status to payed, an payed ticket can't be locked or ordered again. ")
-    @PutMapping("/ticket/{ticketId}/status/payed")
-    public ResponseEntity payTicket(@PathVariable String ticketId) {
+    @PutMapping("/ticket/{cinemaId}/{ticketId}/status/payed")
+    public ResponseEntity payTicket(@PathVariable Integer cinemaId, @PathVariable String ticketId) {
         try {
-            Ticket ticket = ticketService.changeStatus(ticketId, Ticket.Status.PAYED);;
+            Ticket ticket = ticketService.changeStatus(cinemaId, ticketId, Ticket.Status.PAYED);;
             if (ticket==null) return ResponseEntity.notFound().build();
         } catch (IllegalStateException e) {
             ResponseEntity.badRequest().body("ticket was payed");
         }
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(Ticket.Status.PAYED.ordinal());
     }
 }
