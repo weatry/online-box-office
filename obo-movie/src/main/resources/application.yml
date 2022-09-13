@@ -5,14 +5,17 @@ logging:
     com.github.budwing.obo: DEBUG
 
 spring:
-  datasource:
-    username: obo
-    password: obo
-    url: jdbc:h2:mem:moviedb
-    driver-class-name: org.h2.Driver
+  application:
+    name: obo-movie
   h2:
     console.enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:obo;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: obo
+    password: obo
   jpa:
+    database: MYSQL
     show-sql: true
 
 # the default url is localhost:8761, so the following config is not necessary

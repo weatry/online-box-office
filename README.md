@@ -7,6 +7,7 @@ Online Box Office(obo) is an example project for microservice architecture style
   * [IDEA / Eclipse](#idea--eclipse)
   * [MySQL](#mysql)
   * [Kafka](#kafka)
+  * [ShardingSphere Proxy](#shardingsphere-proxy)
 * [Tags](#tags)
   * [s0](#s0)
   * [s1](#s1)
@@ -37,6 +38,9 @@ It's easy to install and configure MySQL following the step of MSI installer.
 If you don't have permission to install MySQL, see [this file](docs/mysql.md) for noninstall archive instruction.
 ### Kafka
 See [here](docs/s3.mq.Kafka.md#Kafka) for instructions.
+### ShardingSphere Proxy
+Download ShardingSphere Proxy binary files from [here](https://archive.apache.org/dist/shardingsphere/5.1.2/apache-shardingsphere-5.1.2-shardingsphere-proxy-bin.tar.gz).
+More detailed information can be found from [s2.db.4.SHARD.PROXY.SEATA](docs/s2.db.4.SHARD.PROXY.SEATA.md). 
 
 ## Tags
 In order to show different technology/pattern of microservices, some tags were added to this project.
@@ -64,6 +68,7 @@ Tags begun with 's2' show some patterns about traditional relational database, s
 * [s2.db.1.SEATA.AT](docs/s2.db.1.SEATA.AT.md)
 * [s2.db.2.SHARD.JDBC](docs/s2.db.2.SHARD.JDBC.md)
 * [s2.db.3.SHARD.JDBC.SEATA](docs/s2.db.3.SHARD.JDBC.SEATA.md)
+* [s2.db.4.SHARD.PROXY.SEATA](docs/s2.db.4.SHARD.PROXY.SEATA.md)
 ### s3
 Tags begun with 's3' show some general requirements in microservice.
 * [s3.mq.Kafka](docs/s3.mq.Kafka.md)

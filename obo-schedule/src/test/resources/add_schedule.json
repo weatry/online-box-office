@@ -1,0 +1,8 @@
+{
+  "cinemaId": 1,
+  "hallId": 1,
+  "movieId": "test-movie",
+  "startTime": "2022-09-04 18:00:00",
+  "endTime": "2022-09-04 20:00:00",
+  "status": "INIT"
+}

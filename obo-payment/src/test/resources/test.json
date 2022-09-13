@@ -1,6 +1,6 @@
 {
   "payAmount": 40,
-  "fromAccount": "1",
-  "toAccount": "2",
+  "cinemaId": 1,
+  "phone": "13999999999",
   "orderId": "0f493969-6edd-4134-ae13-803c2b22c543"
 }

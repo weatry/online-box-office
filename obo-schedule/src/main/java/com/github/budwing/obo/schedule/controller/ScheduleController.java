@@ -1,7 +1,6 @@
 package com.github.budwing.obo.schedule.controller;
 
 import com.github.budwing.obo.schedule.entity.Schedule;
-import com.github.budwing.obo.schedule.repository.ScheduleRepository;
 import com.github.budwing.obo.schedule.service.ScheduleService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -11,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 @RestController
@@ -19,22 +17,14 @@ import java.util.List;
 @Slf4j
 public class ScheduleController {
     @Autowired
-    private ScheduleRepository scheduleRepository;
-    @Autowired
     private ScheduleService scheduleService;
     @Operation(summary = "Get schedules of a specific cinema")
     @GetMapping("/schedule/cinema/{cinemaId}")
     public List<Schedule> getCinemaSchedulesBetween(@PathVariable Integer cinemaId,
                                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
                                                     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end) {
-        if (start==null) {
-            start=LocalDateTime.now();
-        }
-        if (end==null) {
-            end=start.plus(24, ChronoUnit.HOURS);
-        }
         log.debug("Find schedules for cinema({}) between {} and {}", cinemaId, start, end);
-        return scheduleRepository.findByCinemaIdAndStartTimeBetween(cinemaId, start, end);
+        return scheduleService.findByCinemaIdAndStartTimeBetween(cinemaId, start, end);
     }
 
     @Operation(summary = "Get schedules of a cinema hall",
@@ -43,77 +33,64 @@ public class ScheduleController {
     public List<Schedule> getCinemaHallSchedulesBetween(@PathVariable Integer cinemaId, @PathVariable Integer hallId,
                                                         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime start,
                                                         @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") LocalDateTime end) {
-        if (start==null) {
-            start=LocalDateTime.now();
-        }
-        if (end==null) {
-            end=start.plus(24, ChronoUnit.HOURS);
-        }
         log.debug("Find schedules for cinema({})-hall({}) between {} and {}", cinemaId, hallId, start, end);
-        return scheduleRepository.findByCinemaIdAndHallIdAndStartTimeBetween(cinemaId, hallId, start, end);
+        return scheduleService.findByCinemaIdAndHallIdAndStartTimeBetween(cinemaId, hallId, start, end);
     }
-
 
 
     @Operation(description = "Get all scheduled movies after a specific time. " +
             "This is commonly used by the users side to buy tickets of a scheduled movie.",
-               summary = "Get scheduled movies")
+            summary = "Get scheduled movies")
     @GetMapping("/schedule/movie")
     public List<String> getScheduledMoviesAfter(@RequestParam(required = false) LocalDateTime start) {
-        if (start==null) {
-            start=LocalDateTime.now();
-        }
-
         log.debug("Find scheduled movies after {}", start);
-        return scheduleRepository.findDistinctMovieIdByStartTimeGreaterThan(start);
+        return scheduleService.findDistinctMovieIdByStartTimeGreaterThan(start);
     }
 
     @Operation(summary = "Get a movie's schedules of a cinema",
             description = "Get a movie's schedules of a cinema. " +
-            "This is usually used by user to buy tickets")
+                    "This is usually used by user to buy tickets")
     @GetMapping("/schedule/movie/{movieId}/cinema/{cinemaId}")
     public List<Schedule> getSchedulesOfMovie(@PathVariable String movieId, @PathVariable Integer cinemaId,
-                                            @RequestParam(required = false) LocalDateTime start) {
-        if (start==null) {
-            start=LocalDateTime.now();
-        }
-
+                                              @RequestParam(required = false) LocalDateTime start) {
         log.debug("Find scheduled movies after {}", start);
-        return scheduleRepository.findByCinemaIdAndMovieIdAndStartTimeGreaterThan(cinemaId, movieId, start);
+        return scheduleService.findByCinemaIdAndMovieIdAndStartTimeGreaterThan(cinemaId, movieId, start);
     }
 
     @Operation(summary = "Add a schedule")
-    @PostMapping("/schedule")
-    public void addSchedule(@RequestBody Schedule schedule) {
+    @PostMapping(value = "/schedule", produces = "application/json")
+    public String addSchedule(@RequestBody Schedule schedule) {
         if (schedule.getStatus()==null) {
             schedule.setStatus(Schedule.Status.INIT);
         }
-        scheduleRepository.save(schedule);
+        scheduleService.save(schedule);
+
+        return schedule.getId();
     }
 
     @Operation(summary = "Start selling tickets of a schedule")
-    @PutMapping("/schedule/{scheduleId}/status/SALE")
-    public ResponseEntity start(@PathVariable String scheduleId) {
-        Schedule schedule = null;
+    @PutMapping("/schedule/cinema/{cinemaId}/{scheduleId}/status/SALE")
+    public ResponseEntity start(@PathVariable Integer cinemaId, @PathVariable String scheduleId) {
+        Integer result = null;
         try {
-            schedule = scheduleService.changeStatus(scheduleId, Schedule.Status.SALE);
+            result = scheduleService.changeStatus(cinemaId, scheduleId, Schedule.Status.SALE);
         } catch (Exception e) {
             log.error("Got an exception: {}", e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
-        if (schedule==null) return ResponseEntity.notFound().build();
-        // a canceled schedule can't change status
-        if (schedule.getStatus()== Schedule.Status.CANCEL) return ResponseEntity.badRequest().body("schedule is canceled");
+        if (result == null) return ResponseEntity.notFound().build();
+        if (result == 0)
+            return ResponseEntity.badRequest().body("schedule is canceled");
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(result);
     }
 
     @Operation(summary = "Cancel a schedule")
-    @PutMapping("/schedule/{scheduleId}/status/CANCEL")
-    public ResponseEntity cancel(@PathVariable String scheduleId) {
-        Schedule schedule = scheduleService.changeStatus(scheduleId, Schedule.Status.CANCEL);
-        if (schedule==null) return ResponseEntity.notFound().build();
+    @PutMapping("/schedule/cinema/{cinemaId}/{scheduleId}/status/CANCEL")
+    public ResponseEntity cancel(@PathVariable Integer cinemaId, @PathVariable String scheduleId) {
+        Integer result = scheduleService.changeStatus(cinemaId, scheduleId, Schedule.Status.CANCEL);
+        if (result == null) return ResponseEntity.notFound().build();
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(result);
     }
 }

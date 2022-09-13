@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 @FeignClient(value = "obo-schedule", fallbackFactory = TicketClientFallbackFactory.class)
 public interface TicketClient {
-    @PutMapping("/obo/ticket/{ticketId}/status/ordered")
-    void orderTicket(@PathVariable("ticketId") String ticketId);
+    @PutMapping("/obo/ticket/{cinemaId}/{ticketId}/status/ordered")
+    void orderTicket(@PathVariable("cinemaId") Integer cinemaId, @PathVariable("ticketId") String ticketId);
 
-    @PutMapping("/obo/ticket/{ticketId}/status/payed")
-    void payTicket(@PathVariable("ticketId") String ticketId);
+    @PutMapping("/obo/ticket/{cinemaId}/{ticketId}/status/payed")
+    void payTicket(@PathVariable("cinemaId") Integer cinemaId, @PathVariable("ticketId") String ticketId);
 }
 
 @Component
@@ -25,12 +25,12 @@ class TicketClientFallbackFactory implements FallbackFactory<TicketClient> {
         log.error("Ticket client exception message:{}", cause.getMessage());
         return new TicketClient() {
             @Override
-            public void orderTicket(String ticketId) {
+            public void orderTicket(Integer cinemaId, String ticketId) {
                 throw new RuntimeException(cause);
             }
 
             @Override
-            public void payTicket(String ticketId) {
+            public void payTicket(Integer cinemaId, String ticketId) {
                 throw new RuntimeException(cause);
             }
         };

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.budwing.obo.schedule.mapper.TicketMapper">
+    <select id="selectById" resultType="com.github.budwing.obo.schedule.entity.Ticket">
+        <![CDATA[
+        select * from obo_ticket where id = #{id} and cinema_id = #{cinemaId}
+        ]]>
+    </select>
+    <insert id="insertTicket" statementType="PREPARED" parameterType="com.github.budwing.obo.schedule.entity.Ticket">
+        insert into obo_ticket(schedule_id, cinema_id, hall_id, movie_id, hall_floor, seat_row, seat_col, status)
+        values(#{scheduleId}, #{cinemaId}, #{hallId}, #{movieId}, #{seat.hallFloor}, #{seat.seatRow}, #{seat.seatCol}, #{status})
+    </insert>
+    <update id="updateTicketStatus">
+        update obo_ticket set status=#{status}
+        where id=#{id} and cinema_id=#{cinemaId}
+    </update>
+    <delete id="deleteByScheduleId">
+        delete from obo_ticket
+        where schedule_id=#{scheduleId} and cinema_id=#{cinemaId}
+    </delete>
+</mapper>

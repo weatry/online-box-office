@@ -4,18 +4,20 @@ DROP TABLE IF EXISTS undo_log;
 
 CREATE TABLE obo_order (
   id varchar(255) not null,
+  cinema_id integer,
   phone varchar(255),
   total_price bigint,
-  create_time datetime(6),
+  create_time datetime,
   payment_id varchar(255),
-  pay_time datetime(6),
+  pay_time datetime,
   status integer,
-  finished_time datetime(6),
+  finished_time datetime,
   primary key (id)
 ) engine=InnoDB;
 
 CREATE TABLE obo_order_item (
   id varchar(255) not null,
+  cinema_id integer,
   price integer,
   ticket_id varchar(255),
   seat_row integer,
@@ -27,7 +29,7 @@ CREATE TABLE obo_order_item (
 
 ALTER TABLE obo_order_item ADD CONSTRAINT FK_order_id FOREIGN KEY (order_id) REFERENCES obo_order (id);
 
-CREATE TABLE `undo_log` (
+CREATE TABLE IF not EXISTS `undo_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `branch_id` bigint(20) NOT NULL,
   `xid` varchar(100) NOT NULL,

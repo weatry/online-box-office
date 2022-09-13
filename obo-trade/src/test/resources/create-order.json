@@ -1,13 +1,12 @@
 {
+  "cinemaId": 1,
   "phone": "13999999999",
-  "orderItemList": [
+  "orderItems": [
     {
-      "ticket": {
-        "ticketId": "test-ticket-id",
-        "seatFloor": 1,
-        "seatRow": 1,
-        "seatCol": 1
-      },
+      "ticketId": "test-ticket-id",
+      "seatFloor": 1,
+      "seatRow": 1,
+      "seatCol": 1,
       "price": 40
     }
   ]

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.budwing.obo.trade.mapper.OrderMapper">
+    <select id="selectById" resultType="com.github.budwing.obo.trade.entity.Order">
+        select * from obo_order where id = #{id} and cinema_id = #{cinemaId}
+    </select>
+    <insert id="insertOrder" statementType="PREPARED" parameterType="com.github.budwing.obo.trade.entity.Order">
+        insert into obo_order(id, cinema_id, phone, create_time, total_price, status)
+        values(#{id}, #{cinemaId}, #{phone}, #{createTime}, #{totalPrice}, #{status})
+    </insert>
+    <update id="updateStatus">
+        update obo_order set status=#{status}
+        where id=#{orderId} and cinema_id=#{cinemaId}
+    </update>
+
+    <!--mapping for order items-->
+    <insert id="insertOrderItem" statementType="PREPARED" parameterType="com.github.budwing.obo.trade.entity.OrderItem">
+        insert into obo_order_item(id, cinema_id, price, ticket_id, seat_row, seat_col, seat_floor, order_id)
+        values(#{id}, #{cinemaId}, #{price}, #{ticket.ticketId}, #{ticket.seatRow}, #{ticket.seatCol}, #{ticket.seatFloor}, #{orderId})
+    </insert>
+    <select id="seletOrderItemsByOrderId" resultMap="OrderItem">
+        select * from obo_order_item where order_id = #{orderId} and cinema_id = #{cinemaId}
+    </select>
+    <resultMap id="OrderItem" type="com.github.budwing.obo.trade.entity.OrderItem">
+        <id column="id" property="id" />
+        <result column="order_id" property="orderId" />
+        <result column="cinema_id" property="cinemaId" />
+        <result column="price" property="price" />
+        <result column="ticket_id" property="ticket.ticketId" />
+        <result column="seat_row" property="ticket.seatRow" />
+        <result column="seat_col" property="ticket.seatCol" />
+        <result column="seat_floor" property="ticket.seatFloor" />
+    </resultMap>
+</mapper>

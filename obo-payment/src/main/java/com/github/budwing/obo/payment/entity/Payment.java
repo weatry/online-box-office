@@ -28,6 +28,8 @@ public class Payment {
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
     private String id;
+    private Integer cinemaId;
+    private String phone;
     private Long payAmount;
     private String fromAccount;
     private String toAccount;

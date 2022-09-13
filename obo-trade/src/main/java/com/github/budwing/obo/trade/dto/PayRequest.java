@@ -9,15 +9,15 @@ public class PayRequest {
     public PayRequest() {
     }
 
-    public PayRequest(Long payAmount, String fromAccount, String toAccount, String orderId) {
-        this.payAmount = payAmount;
-        this.fromAccount = fromAccount;
-        this.toAccount = toAccount;
+    public PayRequest(String orderId, Integer cinemaId, String phone, Long payAmount) {
         this.orderId = orderId;
+        this.cinemaId = cinemaId;
+        this.phone = phone;
+        this.payAmount = payAmount;
     }
 
-    private Long payAmount;
-    private String fromAccount;
-    private String toAccount;
     private String orderId;
+    private Integer cinemaId;
+    private String phone;
+    private Long payAmount;
 }

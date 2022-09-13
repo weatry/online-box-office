@@ -10,14 +10,8 @@ spring:
   datasource:
     username: root
     password: root
-    url: jdbc:mysql://localhost:3306/scheduledb?useSSL=false
+    url: jdbc:mysql://localhost:3307/obo?useSSL=false
     driver-class-name: com.mysql.cj.jdbc.Driver
-
-  jpa:
-    database: MYSQL
-    show-sql: true
-    hibernate:
-      ddl-auto: none
   sql:
     init:
       mode: ALWAYS
@@ -37,6 +31,12 @@ spring:
           file:
             file: classpath:degraderule.json
             rule-type: degrade
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    defaultEnumTypeHandler: org.apache.ibatis.type.EnumOrdinalTypeHandler
+    mapUnderscoreToCamelCase: true
 
 feign:
   sentinel:

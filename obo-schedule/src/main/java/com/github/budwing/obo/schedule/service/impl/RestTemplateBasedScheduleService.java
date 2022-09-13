@@ -1,26 +1,11 @@
 package com.github.budwing.obo.schedule.service.impl;
 
-import com.github.budwing.obo.schedule.entity.Schedule;
-import com.github.budwing.obo.schedule.entity.Ticket;
-import com.github.budwing.obo.schedule.repository.ScheduleRepository;
-import com.github.budwing.obo.schedule.repository.TicketRepository;
-import com.github.budwing.obo.schedule.service.ScheduleService;
-import com.github.budwing.obo.schedule.vo.Seat;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
-import javax.transaction.Transactional;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 //@Service
 @Slf4j
-public class DefaultScheduleService implements ScheduleService {
-    @Autowired
+public class RestTemplateBasedScheduleService { //implements ScheduleService {
+/*    @Autowired
     private ScheduleRepository scheduleRepository;
     @Autowired
     private TicketRepository ticketRepository;
@@ -49,7 +34,7 @@ public class DefaultScheduleService implements ScheduleService {
                 ticketRepository.saveAll(tickets);
                 break;
             case CANCEL:
-                ticketRepository.deleteBySchedule_id(scheduleId);
+                ticketRepository.deleteByScheduleId(scheduleId);
         }
 
         schedule.setStatus(status);
@@ -67,5 +52,5 @@ public class DefaultScheduleService implements ScheduleService {
         return seats.stream()
                 .map(m -> new Ticket(schedule, Seat.of(m), 40.00))
                 .collect(Collectors.toList());
-    }
+    }*/
 }

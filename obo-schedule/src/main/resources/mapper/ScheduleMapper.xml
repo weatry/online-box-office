@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.github.budwing.obo.schedule.mapper.ScheduleMapper">
+    <select id="selectById" resultType="com.github.budwing.obo.schedule.entity.Schedule">
+        <![CDATA[
+        select * from obo_schedule where id = #{id} and cinema_id = #{cinemaId}
+        ]]>
+    </select>
+    <select id="selectByCinemaIdAndStartTimeBetween" resultType="com.github.budwing.obo.schedule.entity.Schedule">
+        <![CDATA[
+        select * from obo_schedule where cinema_id = #{cinemaId} and start_time >= #{start} and start_time <= #{end}
+        ]]>
+    </select>
+    <select id="selectByCinemaIdAndMovieIdAndStartTimeGreaterThan" resultType="com.github.budwing.obo.schedule.entity.Schedule">
+        <![CDATA[
+        select * from obo_schedule where cinema_id = #{cinemaId} and movie_id = #{movieId} and start_time >= #{start}
+        ]]>
+    </select>
+    <select id="selectByCinemaIdAndHallIdAndStartTimeBetween" resultType="com.github.budwing.obo.schedule.entity.Schedule">
+        <![CDATA[
+        select * from obo_schedule where cinema_id = #{cinemaId} and hall_id = #{hallId} and start_time >= #{start} and start_time <= #{end}
+        ]]>
+    </select>
+    <select id="selectDistinctMovieIdByStartTimeGreaterThan" resultType="string">
+        <![CDATA[
+        select distinct movie_id from obo_schedule where start_time >= #{start}
+        ]]>
+    </select>
+    <insert id="insertSchedule" statementType="PREPARED" parameterType="com.github.budwing.obo.schedule.entity.Schedule">
+        insert into obo_schedule(id, cinema_id, hall_id, movie_id, start_time, end_time, status)
+        values(#{id}, #{cinemaId}, #{hallId}, #{movieId}, #{startTime}, #{endTime}, #{status})
+    </insert>
+    <update id="updateScheduleStatus">
+        update obo_schedule set status=#{status}
+        where id=#{id} and cinema_id=#{cinemaId}
+    </update>
+</mapper>
