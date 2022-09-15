@@ -14,6 +14,10 @@ public interface OrderMapper {
     int updateStatus(@Param("orderId") String orderId,
                      @Param("cinemaId") Integer cinemaId,
                      @Param("status") Order.Status status);
+    int updatePickupCodeAndStatus(@Param("orderId") String orderId,
+                                  @Param("cinemaId") Integer cinemaId,
+                                  @Param("pickupCode") String pickupCode,
+                                  @Param("status") Order.Status status);
     Order selectById(@Param("id") String id,
                      @Param("cinemaId") Integer cinemaId);
 

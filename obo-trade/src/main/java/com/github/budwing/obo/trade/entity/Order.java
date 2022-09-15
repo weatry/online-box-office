@@ -25,5 +25,7 @@ public class Order {
     private String paymentId;
     private Status status;
     private LocalDateTime finishedTime;
+    private String pickupCode;
+    private LocalDateTime pickupTime;
     private List<OrderItem> orderItemList;
 }

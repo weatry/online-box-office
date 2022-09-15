@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 @Data
 @ToString
-public class OrderItemDto implements Serializable {
+public class OrderItemDTO implements Serializable {
     private String id;
     private Integer cinemaId;
     private String ticketId;

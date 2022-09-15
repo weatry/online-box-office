@@ -72,3 +72,4 @@ Tags begun with 's2' show some patterns about traditional relational database, s
 ### s3
 Tags begun with 's3' show some general requirements in microservice.
 * [s3.mq.Kafka](docs/s3.mq.Kafka.md)
+* [s3.id.cache](docs/s3.id.cache.md)

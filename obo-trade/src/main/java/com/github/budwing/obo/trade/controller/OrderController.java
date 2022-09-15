@@ -1,6 +1,6 @@
 package com.github.budwing.obo.trade.controller;
 
-import com.github.budwing.obo.trade.dto.OrderDto;
+import com.github.budwing.obo.trade.dto.OrderDTO;
 import com.github.budwing.obo.trade.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class OrderController {
     @Operation(summary = "Create an order",
             description = "Tickets status will be changed to ordered, and an unpaid order will be saved at the same time.")
     @PostMapping(value = "/order", produces = "application/json")
-    public ResponseEntity create(@RequestBody OrderDto order) {
+    public ResponseEntity create(@RequestBody OrderDTO order) {
         log.debug("Start creating order:{}", order);
         String orderId = null;
         try {
@@ -50,4 +50,6 @@ public class OrderController {
 
         return ResponseEntity.ok(payId);
     }
+
+
 }

@@ -1,0 +1,26 @@
+server:
+  port: 8086
+logging:
+  level:
+    com.github.budwing.obo: DEBUG
+
+spring:
+  application:
+    name: obo-id-center
+  h2:
+    console.enabled: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:obo;MODE=MySQL;DATABASE_TO_LOWER=TRUE;CASE_INSENSITIVE_IDENTIFIERS=TRUE
+    username: obo
+    password: obo
+  jpa:
+    database: MYSQL
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+  sql:
+    init:
+      mode: ALWAYS
+      data-locations: classpath:data.sql
+      schema-location: classpath:schema.sql
