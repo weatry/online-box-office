@@ -14,6 +14,11 @@
         update obo_order set status=#{status}
         where id=#{orderId} and cinema_id=#{cinemaId}
     </update>
+    <update id="updatePickupCodeAndStatus">
+        update obo_order
+        set status=#{status}, pickup_code=#{pickupCode}
+        where id=#{orderId} and cinema_id=#{cinemaId}
+    </update>
 
     <!--mapping for order items-->
     <insert id="insertOrderItem" statementType="PREPARED" parameterType="com.github.budwing.obo.trade.entity.OrderItem">

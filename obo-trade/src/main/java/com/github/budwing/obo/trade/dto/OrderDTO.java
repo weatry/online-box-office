@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 
 @Data
 @ToString
-public class OrderDto implements Serializable {
+public class OrderDTO implements Serializable {
     private Integer cinemaId;
     private String phone;
-    private List<OrderItemDto> orderItems;
+    private List<OrderItemDTO> orderItems;
 
     public Order toEntity() {
         Order order = new Order();

@@ -1,0 +1,1 @@
+insert into obo_global_id values(1,'ticknum',1, 1000, 99999999);

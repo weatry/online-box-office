@@ -22,7 +22,7 @@ public class EventBindings {
             Integer cinemaId = Integer.valueOf(results[0]);
             String orderId = results[1];
             String status = results[2];
-            if (status.equals("SUCCESSFUL")) {
+            if (status.equalsIgnoreCase("SUCCESSFUL")) {
                 status = "PAID";
             } else {
                 status = "FAILED";

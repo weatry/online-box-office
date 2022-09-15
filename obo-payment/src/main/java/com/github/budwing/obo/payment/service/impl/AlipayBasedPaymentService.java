@@ -58,7 +58,7 @@ public class AlipayBasedPaymentService implements PaymentService {
         payment.setStatus(Payment.Status.valueOf(status.toUpperCase()));
         payment.setFinishedTime(LocalDateTime.now());
 
-        bridge.send("payment-result", payment.getCinemaId()+":"+payment.getOrderId()+":"+status);
+        bridge.send("payment-result", payment.getCinemaId()+":"+payment.getOrderId()+":"+status.toUpperCase());
 
         return payment.getId();
     }
