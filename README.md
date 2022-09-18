@@ -47,7 +47,7 @@ More detailed information can be found from [s2.db.4.SHARD.PROXY.SEATA](docs/s2.
 The following software are not manaditory, they are used to improve the observability of the system:
 1. [Prometheus](docs/s4.ob.metrics.md#prometheus)
 2. [Grafana](docs/s4.ob.metrics.md#grafana)
-3. Zipkin/Jaeger
+3. [Zipkin](docs/s4.ob.traces.Zipkin.md#zipkin-and-brave)/Jaeger
 
 ## Tags
 In order to show different technology/pattern of microservices, some tags were added to this project.
@@ -83,3 +83,4 @@ Tags begun with 's3' show some general requirements in microservice.
 ### s4
 Tags begun with 's4' show the observability of microservice.
 * [s4.ob.metrics](docs/s4.ob.metrics.md)
+* [s4.ob.traces.Zipkin](docs/s4.ob.traces.Zipkin.md)
