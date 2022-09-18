@@ -13,6 +13,7 @@ Online Box Office(obo) is an example project for microservice architecture style
   * [s1](#s1)
   * [s2](#s2)
   * [s3](#s3)
+  * [s4](#s4)
 <!-- TOC -->
 ## Deployment
 In order to run this project, you will have to install the following software:
@@ -41,6 +42,12 @@ See [here](docs/s3.mq.Kafka.md#Kafka) for instructions.
 ### ShardingSphere Proxy
 Download ShardingSphere Proxy binary files from [here](https://archive.apache.org/dist/shardingsphere/5.1.2/apache-shardingsphere-5.1.2-shardingsphere-proxy-bin.tar.gz).
 More detailed information can be found from [s2.db.4.SHARD.PROXY.SEATA](docs/s2.db.4.SHARD.PROXY.SEATA.md). 
+
+### Observability
+The following software are not manaditory, they are used to improve the observability of the system:
+1. [Prometheus](docs/s4.ob.metrics.md#prometheus)
+2. [Grafana](docs/s4.ob.metrics.md#grafana)
+3. Zipkin/Jaeger
 
 ## Tags
 In order to show different technology/pattern of microservices, some tags were added to this project.
@@ -73,3 +80,6 @@ Tags begun with 's2' show some patterns about traditional relational database, s
 Tags begun with 's3' show some general requirements in microservice.
 * [s3.mq.Kafka](docs/s3.mq.Kafka.md)
 * [s3.id.cache](docs/s3.id.cache.md)
+### s4
+Tags begun with 's4' show the observability of microservice.
+* [s4.ob.metrics](docs/s4.ob.metrics.md)

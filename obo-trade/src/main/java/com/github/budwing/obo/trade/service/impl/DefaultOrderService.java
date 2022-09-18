@@ -10,6 +10,8 @@ import com.github.budwing.obo.trade.sal.IDCenterClient;
 import com.github.budwing.obo.trade.sal.PaymentClient;
 import com.github.budwing.obo.trade.sal.TicketClient;
 import com.github.budwing.obo.trade.service.OrderService;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Metrics;
 import io.seata.core.context.RootContext;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,9 @@ import java.util.UUID;
 @Service
 @Slf4j
 public class DefaultOrderService implements OrderService {
+    private Counter orderCreateCounter = Metrics.counter("obo_trade_order_create_total");
+    private Counter orderCreateSuccessCounter = Metrics.counter("obo_trade_order_create_success_total");
+    private Counter orderCreateFailCounter = Metrics.counter("obo_trade_order_create_fail_total");
     @Autowired
     private TicketClient ticketClient;
     @Autowired
@@ -37,6 +42,7 @@ public class DefaultOrderService implements OrderService {
     @GlobalTransactional
     @Override
     public String createOrder(OrderDTO orderDto) {
+        orderCreateCounter.increment();
         log.debug("Global transaction xid: {}", RootContext.getXID());
         Long totalPrice = 0l;
         for (OrderItemDTO item : orderDto.getOrderItems()) {
@@ -60,9 +66,11 @@ public class DefaultOrderService implements OrderService {
 
         // The following code is used to mock fail to test global transaction
         if (random.nextBoolean()) {
+            orderCreateFailCounter.increment();
             throw new RuntimeException("mock fail");
         }
 
+        orderCreateSuccessCounter.increment();
         return order.getId();
     }
 
