@@ -22,6 +22,10 @@ spring:
       mode: ALWAYS
       data-locations: classpath:data.sql
       schema-locations: classpath:schema.sql
+  sleuth:
+    sampler:
+      probability: 1
+  zipkin.baseUrl: http://localhost:9411/
 
   cloud:
     alibaba.seata:
