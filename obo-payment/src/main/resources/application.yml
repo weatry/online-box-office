@@ -3,6 +3,11 @@ server:
 logging:
   level:
     com.github.budwing.obo: DEBUG
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus,info,health,metrics
 
 spring:
   application:
