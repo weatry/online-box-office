@@ -34,6 +34,7 @@
         <shardingsphere.version>5.1.2</shardingsphere.version>
         <seata.version>1.4.2</seata.version>
         <micrometer-registry-prometheus.version>1.9.4</micrometer-registry-prometheus.version>
+        <opentracing-spring-jaeger-cloud-starter.version>3.3.1</opentracing-spring-jaeger-cloud-starter.version>
     </properties>
 
     <dependencyManagement>
@@ -108,6 +109,11 @@
                 <groupId>io.micrometer</groupId>
                 <artifactId>micrometer-registry-prometheus</artifactId>
                 <version>${micrometer-registry-prometheus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.opentracing.contrib</groupId>
+                <artifactId>opentracing-spring-jaeger-cloud-starter</artifactId>
+                <version>${opentracing-spring-jaeger-cloud-starter.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

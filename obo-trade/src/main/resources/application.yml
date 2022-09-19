@@ -3,6 +3,12 @@ server:
 logging:
   level:
     com.github.budwing.obo: DEBUG
+  file:
+    name: ${USERPROFILE}/logs/obo-trade.log
+  logback:
+    rollingpolicy:
+      max-file-size: 1MB
+      max-history: 2
 management:
   endpoints:
     web:
@@ -77,3 +83,11 @@ seata:
   client:
     undo:
       log-serialization: kryo
+
+#opentracing:
+#  jaeger:
+#    udp-sender:
+#      host: localhost
+#      port: 6831
+#    const-sampler:
+#      decision: true
