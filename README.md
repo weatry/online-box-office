@@ -61,6 +61,7 @@ Tags begin with 's0' show the basic knowledge about microservices, such as the k
 ### s1
 Tags begun with 's1' show some common patterns in microservices, and how to implement them in Spring Cloud.
 Tags with '**_s1.lb._**' prefix are related to load balancing. Tags with '**_s1.cb._**' prefix are related to circuit breaker.
+Tags with '**_s1.gw._**' prefix are related to gateway.
 * Load balancing **_s1.lb_**
   * [s1.lb.0.RestTemplate](docs/s1.lb.0.RestTemplate.md)
   * [s1.lb.1.RestTemplate.SimpleDiscoveryClient](docs/s1.lb.1.RestTemplate.SimpleDiscoveryClient.md)
@@ -71,6 +72,8 @@ Tags with '**_s1.lb._**' prefix are related to load balancing. Tags with '**_s1.
   * [s1.cb.2.FeignCircuitBreaker](docs/s1.cb.2.FeignCircuitBreaker.md)
   * [s1.cb.3.Bulkhead](docs/s1.cb.3.Bulkhead.md)
   * [s1.cb.4.Sentinel](docs/s1.cb.4.Sentinel.md)
+* Gateway **_s1.gw_**
+  * [s1.gw.Gateway](docs/s1.gw.1.Gateway.md)
 ### s2
 Tags begun with 's2' show some patterns about traditional relational database, such as distributed transaction, database sharding.
 * [s2.db.1.SEATA.AT](docs/s2.db.1.SEATA.AT.md)
