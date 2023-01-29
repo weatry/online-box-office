@@ -22,7 +22,7 @@ spring:
     gateway:
       routes:
         - id: obo-cinema
-          uri: http://localhost:8081
+          uri: lb://obo-cinema
           predicates:
             - Path=/obo/cinema/**
         - id: obo-movie
@@ -30,16 +30,20 @@ spring:
           predicates:
             - Path=/obo/movie/**
         - id: obo-payment
-          uri: http://localhost:8083
+          uri: lb://obo-payment
           predicates:
             - Path=/obo/payment/**
         - id: obo-schedule
-          uri: http://localhost:8084
+          uri: lb://obo-schedule
           predicates:
             - Path=/obo/schedule/**,/obo/ticket/**
         - id: obo-trade
-          uri: http://localhost:8085
+          uri: lb://obo-trade
           predicates:
             - Path=/obo/order/**
+        - id: obo-id-center
+          uri: lb://obo-id-center
+          predicates:
+            - Path=/obo/id/**
   main:
     web-application-type: reactive
