@@ -74,6 +74,7 @@ Tags with '**_s1.gw._**' prefix are related to gateway.
   * [s1.cb.4.Sentinel](docs/s1.cb.4.Sentinel.md)
 * Gateway **_s1.gw_**
   * [s1.gw.Gateway](docs/s1.gw.1.Gateway.md)
+  * [s1.gw.Filter.Global](docs/s1.gw.Filter.Global.md)
 ### s2
 Tags begun with 's2' show some patterns about traditional relational database, such as distributed transaction, database sharding.
 * [s2.db.1.SEATA.AT](docs/s2.db.1.SEATA.AT.md)
