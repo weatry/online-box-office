@@ -17,6 +17,7 @@
         <module>obo-eureka</module>
         <module>obo-seata</module>
         <module>obo-id-center</module>
+        <module>obo-gateway</module>
     </modules>
 
     <properties>
