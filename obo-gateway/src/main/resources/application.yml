@@ -17,7 +17,7 @@ management:
 
 spring:
   application:
-    name: obo-cinema
+    name: obo-gateway
   cloud:
     gateway:
       routes:
@@ -29,6 +29,8 @@ spring:
           uri: http://localhost:8082
           predicates:
             - Path=/obo/movie/**
+          filters:
+            - CircuitBreaker=cinema-circuitbreaker
         - id: obo-payment
           uri: lb://obo-payment
           predicates:
@@ -47,3 +49,14 @@ spring:
             - Path=/obo/id/**
   main:
     web-application-type: reactive
+
+resilience4j.circuitbreaker:
+  instances:
+    cinema-circuitbreaker:
+      registerHealthIndicator: true
+      slidingWindowSize: 2
+      permittedNumberOfCallsInHalfOpenState: 1
+      slidingWindowType: COUNT_BASED
+      minimumNumberOfCalls: 2
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 50

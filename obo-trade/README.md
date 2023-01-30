@@ -6,10 +6,10 @@
 5. User selects the cinema he/she wants;
 6. System returns the movie schedule;
 7. User selects one schedule;
-8. System returns the seats available;
+8. System returns the seats available and their price;
 9. User selects one or more seats;
 10. System locks the seats;
 11. User submits order;
-12. System validates order and creates pay bill;
+12. System validates order, calculate the total price and create pay bill;
 13. User pays the bill;
 14. System generates ticket code / print ticket.
