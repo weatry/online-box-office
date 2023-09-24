@@ -1,2 +1,34 @@
 # online-box-office
-Online box office for movies
+Online Box Office(obo) is an example project for microservice architecture style.
+<!-- TOC -->
+* [Deployment](#deployment)
+    * [JDK](#jdk)
+    * [Maven](#maven)
+    * [IDEA / Eclipse](#idea--eclipse)
+* [Tags](#tags)
+    * [s0](#s0)
+<!-- TOC -->
+## Deployment
+In order to run this project, you will have to install the following software:
+### JDK
+The project is based on Java, so JDK is required.
+* Download and install either [Oracle JDK](https://www.oracle.com/java/technologies/downloads/#java8) or [OpenJDK](https://www.openlogic.com/openjdk-downloads), JDK 1.8 is preferred.
+* Set up 'JAVA_HOME' environment variable to the JDK path
+### Maven
+Apache Maven is used to manage the project:
+* Download [Apache Maven](https://maven.apache.org/download.cgi), choose the latest binary package, unzip it to a specific directory.
+* Add Maven '/bin' to the environment variable 'PATH'.
+* Configure it following the [instruction](https://maven.apache.org/configure.html) (Normally, it's not required).
+### IDEA / Eclipse
+An IDE is a good plus to help you understand the source code. Choose one of your favorite IDE and install it:
+* [IntelliJ IDEA](https://www.jetbrains.com/idea/download), community version is enough
+* [Eclipse](https://www.eclipse.org/downloads/)
+
+IDEA is preferred.
+
+## Tags
+In order to show different technology/pattern of microservices, some tags were added to this project.
+The following paragraph will explain what's contained in each tag. Just run 'git checkout <tag name>' to see the implementation.
+### s0
+Tags begin with 's0' show the basic knowledge about microservices, such as the knowledge about Spring Boot, and Domain Driven Design.
+* [s0.spring.boot](docs/s0.spring.boot.md)

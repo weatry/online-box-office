@@ -1,0 +1,6 @@
+server:
+  port: 8090
+
+logging:
+  level:
+    com.github.budwing.obo: INFO
