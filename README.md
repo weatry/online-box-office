@@ -1,6 +1,7 @@
 # online-box-office
 Online Box Office(obo) is an example project for microservice architecture style.
 <!-- TOC -->
+* [Architecture](#architecture)
 * [Deployment](#deployment)
   * [JDK](#jdk)
   * [Maven](#maven)
@@ -15,7 +16,14 @@ Online Box Office(obo) is an example project for microservice architecture style
   * [s2](#s2)
   * [s3](#s3)
   * [s4](#s4)
+
 <!-- TOC -->
+## Architecture
+The services in OBO can be classified as business services, base services and operation services.
+See the following picture for details:
+
+![arch](docs/statics/arch.png)
+
 ## Deployment
 In order to run this project, you will have to install the following software:
 ### JDK
